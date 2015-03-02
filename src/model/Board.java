@@ -14,7 +14,7 @@ public class Board implements BoardInterface {
 	/**HashMap of the 64 squares in the chessboard, keys numbered 1-64
 	 * 
 	 */
-	private HashMap<Integer, Piece> squares;
+	private HashMap<Integer, PieceInterface> squares;
 	private String status;
 	private String whose_turn;
 	
@@ -24,7 +24,7 @@ public class Board implements BoardInterface {
 	public Board() {
 		
 		//initialize squares
-		squares = new HashMap<Integer, Piece>();
+		squares = new HashMap<Integer, PieceInterface>();
 		
 		//add white pawns
 		for(Integer x = 9; x < 17; x++) {
@@ -65,8 +65,27 @@ public class Board implements BoardInterface {
 
 	@Override
 	public void addPiece(String color, String type, Integer location) {
-		squares.put(location, new Piece(color, type));
+		switch (type) {
 		
+		//handle pawns
+		case ("p"):
+			squares.put(location, new Pawn(color, type));
+		//handle rooks
+		case ("R"):
+			squares.put(location, new Rook(color, type));
+		//handle knights
+		case ("N"):
+			squares.put(location, new Knight(color, type));
+		//handle bishops
+		case ("B"):
+			squares.put(location, new Bishop(color, type));
+		//handle queens
+		case ("Q"):
+			squares.put(location, new Queen(color, type));
+		//handle king
+		case ("K"):
+			
+		}
 	}
 
 	@Override
@@ -85,6 +104,7 @@ public class Board implements BoardInterface {
 	public PieceInterface getPieceAt(Integer location) {
 		return squares.get(location);
 	}
+
 
 	@Override
 	public void switchPlayer() {

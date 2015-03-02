@@ -6,7 +6,6 @@ package control;
 import java.util.StringTokenizer;
 
 import model.Board;
-import model.Piece;
 import model.PieceInterface;
 
 /**
@@ -14,6 +13,8 @@ import model.PieceInterface;
  *
  */
 public class MoveChecker {
+	
+	//Board board = new Board();
 
 	public static boolean isValidMove(Board board, String move) {
 		
@@ -57,11 +58,12 @@ public class MoveChecker {
 		//TODO finish this
 		//analyze piece type
 		PieceInterface piece = board.getPieceAt(parsed_move[0]);
+		
 		switch (piece.getType()) {
 		
 		//handle pawns
 		case ("p"):
-		
+
 		//handle rooks
 		case ("R"):
 		
@@ -99,7 +101,7 @@ public class MoveChecker {
 	 * example, 'e2 e4' would become [13, 29]. Null is returned if the one or both of the
 	 * squares given are nonsensical, or if something else is wrong with the input.
 	 */
-	private static Integer[] parseMove(String move) {
+	public static Integer[] parseMove(String move) {
 		
 		//initialize return array
 		Integer[] parsed_moves = new Integer[2];

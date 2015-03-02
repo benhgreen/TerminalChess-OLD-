@@ -23,5 +23,8 @@ public interface PieceInterface {
 	 * @return True if white, False if black
 	 */
 	public boolean isWhite();
+	
+	public boolean isValidMove(Board board, int[] location);
+
 
 }
