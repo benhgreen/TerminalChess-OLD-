@@ -38,6 +38,9 @@ public class CmdView {
 				System.out.print("\nIllegal Move, try again: ");
 				move = input.nextLine();
 			}
+			
+			
+		
 		}
 
 	}

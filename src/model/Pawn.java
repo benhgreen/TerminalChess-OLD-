@@ -36,40 +36,80 @@ public class Pawn implements PieceInterface {
 		int start = location[0];
 		int end = location[1];
 		
-		//capture piece diagonally
-		if((board.getPieceAt(start+7) != null) || (board.getPieceAt(start+9) != null))
+		if(color.equals("white"))
 		{
-			if(end == start+7 || end == start+9)
+			//capture piece diagonally
+			if((board.getPieceAt(start+7) != null) || (board.getPieceAt(start+9) != null))
 			{
-				board.removePiece(end);
-				board.movePiece(start, end);
-				is_first_move = false;
-				return true;
-			}			
-		}
-	
-		//moving one square up
-		if(end == start+8)
-		{
-			if(board.getPieceAt(end) == null)
-			{
-				board.movePiece(start, end);
-				is_first_move = false;
-				return true;
-			}	
-		}
+				if(end == start+7 || end == start+9)
+				{
+					board.removePiece(end);
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}			
+			}
 		
-		//moving 2 squares up
-		if(is_first_move)
-		{
-			if(board.getPieceAt(end) == null && board.getPieceAt(start+8) == null)
+			//moving one square up
+			if(end == start+8)
 			{
-				board.movePiece(start, end);
-				is_first_move = false;
-				return true;
+				if(board.getPieceAt(end) == null)
+				{
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}	
+			}
+			
+			//moving 2 squares up
+			if(is_first_move)
+			{
+				if(board.getPieceAt(end) == null && board.getPieceAt(start+8) == null)
+				{
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}
 			}
 		}
 		
+		if(color.equals("black"))
+		{
+			//capture piece diagonally
+			if((board.getPieceAt(start-7) != null) || (board.getPieceAt(start-9) != null))
+			{
+				if(end == start-7 || end == start-9)
+				{
+					board.removePiece(end);
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}			
+			}
+		
+			//moving one square down
+			if(end == start-8)
+			{
+				if(board.getPieceAt(end) == null)
+				{
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}	
+			}
+			
+			//moving 2 squares down
+			if(is_first_move)
+			{
+				if(board.getPieceAt(end) == null && board.getPieceAt(start-8) == null)
+				{
+					board.movePiece(start, end);
+					is_first_move = false;
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 }

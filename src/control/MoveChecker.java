@@ -6,6 +6,7 @@ package control;
 import java.util.StringTokenizer;
 
 import model.Board;
+import model.Pawn;
 import model.PieceInterface;
 
 /**
