@@ -32,11 +32,14 @@ public class Pawn implements PieceInterface {
 	}
 
 	@Override
-	public boolean isValidMove(Board board, int[] location) {
-		int start = location[0];
-		int end = location[1];
+	public boolean isValidPieceMove(Board board, Integer[] location) {
+		Integer start = location[0];
+		Integer end = location[1];
+
 		
-		if(color.equals("white"))
+		
+		//white 
+		if(color.equals("w"))
 		{
 			//capture piece diagonally
 			if((board.getPieceAt(start+7) != null) || (board.getPieceAt(start+9) != null))
@@ -57,6 +60,12 @@ public class Pawn implements PieceInterface {
 				{
 					board.movePiece(start, end);
 					is_first_move = false;
+					
+					//reached end of board
+					if(end <= 64 || end >= 57)
+						//queen for now TODO: ask for other pieces
+						board.replacePiece("w", "Q", end);
+					
 					return true;
 				}	
 			}
@@ -73,7 +82,8 @@ public class Pawn implements PieceInterface {
 			}
 		}
 		
-		if(color.equals("black"))
+		//black 
+		if(color.equals("b"))
 		{
 			//capture piece diagonally
 			if((board.getPieceAt(start-7) != null) || (board.getPieceAt(start-9) != null))
@@ -94,6 +104,12 @@ public class Pawn implements PieceInterface {
 				{
 					board.movePiece(start, end);
 					is_first_move = false;
+					
+					//reached end of board
+					if(end <= 64 || end >= 57)
+						//queen for now TODO: ask for other pieces
+						board.replacePiece("b", "Q", end);
+					
 					return true;
 				}	
 			}

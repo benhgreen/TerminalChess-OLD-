@@ -8,7 +8,6 @@ import java.util.Scanner;
 import control.BoardPrinter;
 import control.MoveChecker;
 import model.Board;
-
 /**
  * @author Ben Green & Kate Sussman
  *
@@ -30,7 +29,12 @@ public class CmdView {
 			BoardPrinter.printBoard(board);
 			
 			//query move
-			System.out.print(board.getWhoseTurn() + "'s move: ");
+			if(board.getWhoseTurn() == "w")
+				System.out.print("White's move: ");
+			
+			else if(board.getWhoseTurn() == "w")
+				System.out.print("Black's move: ");
+			
 			move = input.nextLine();
 			
 			//check move validity
@@ -38,7 +42,6 @@ public class CmdView {
 				System.out.print("\nIllegal Move, try again: ");
 				move = input.nextLine();
 			}
-			
 			
 		
 		}

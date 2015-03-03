@@ -41,6 +41,9 @@ public interface BoardInterface {
 	 * @param location Location to search for piece
 	 * @return Piece at location or null if no piece found
 	 */
+	
+	public void replacePiece(String color, String type, Integer location);
+	
 	public PieceInterface getPieceAt(Integer location);
 	
 	/**Switches current player when a turn has ended

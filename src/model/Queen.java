@@ -26,7 +26,7 @@ public class Queen implements PieceInterface{
 	}
 
 	@Override
-	public boolean isValidMove(Board board, int[] location) {
+	public boolean isValidPieceMove(Board board, Integer[] location) {
 		int start = location[0];
 		int end = location[1];
 		

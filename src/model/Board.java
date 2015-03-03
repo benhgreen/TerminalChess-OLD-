@@ -60,7 +60,7 @@ public class Board implements BoardInterface {
 		status = "progressing";
 		
 		//set white to go next
-		whose_turn = "White";
+		whose_turn = "w";
 	}
 
 	@Override
@@ -84,34 +84,58 @@ public class Board implements BoardInterface {
 			squares.put(location, new Queen(color, type));
 		//handle king
 		case ("K"):
-			
+			squares.put(location, new Queen(color, type));
 		}
 	}
 
 	@Override
 	public void removePiece(Integer location) {
-		// TODO Auto-generated method stub
+		squares.remove(location);
+			
 		
 	}
 
 	@Override
 	public void movePiece(Integer start_location, Integer end_location) {
-		// TODO Auto-generated method stub
+		squares.remove(start_location);
+		squares.put(end_location, getPieceAt(start_location));
 		
 	}
+	
 
 	@Override
 	public PieceInterface getPieceAt(Integer location) {
 		return squares.get(location);
 	}
+	
+	@Override
+	public void replacePiece(String color, String type, Integer location) {
+		removePiece(location);
+		
+		switch (type) {
+		
+		//handle rooks
+		case ("R"):
+			squares.put(location, new Rook(color, type));
+		//handle knights
+		case ("N"):
+			squares.put(location, new Knight(color, type));
+		//handle bishops
+		case ("B"):
+			squares.put(location, new Bishop(color, type));
+		//handle queens
+		case ("Q"):
+			squares.put(location, new Queen(color, type));	
+		}
+	}
 
 
 	@Override
 	public void switchPlayer() {
-		if (whose_turn.equals("White")) {
-			whose_turn = "Black";
+		if (whose_turn.equals("w")) {
+			whose_turn = "b";
 		} else {
-			whose_turn = "White";
+			whose_turn = "w";
 		}
 		
 	}

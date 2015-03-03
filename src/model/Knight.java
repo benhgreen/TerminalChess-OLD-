@@ -24,9 +24,10 @@ public class Knight implements PieceInterface{
 	public boolean isWhite() {
 		return color.equals("white");
 	}
+	
 
 	@Override
-	public boolean isValidMove(Board board, int[] location) {
+	public boolean isValidPieceMove(Board board, Integer[] location) {
 		int start = location[0];
 		int end = location[1];
 		

@@ -38,7 +38,7 @@ public class MoveChecker {
 		}
 		
 		//analyze move further with helper method
-		if (!isValidPieceMove(board, parsed_move)) {
+		if (!isValidMovePiece(board, parsed_move)) {
 			return false;
 		
 		//make sure move doesn't violate check rules
@@ -46,7 +46,7 @@ public class MoveChecker {
 			return false;
 		}
 		
-		return false;
+		return true;
 		
 	}
 	
@@ -55,7 +55,7 @@ public class MoveChecker {
 	 * @param parsed_move Parsed move from parseMove method
 	 * @return True if move is valid, False if it ain't
 	 */
-	private static boolean isValidPieceMove(Board board, Integer[] parsed_move) {
+	private static boolean isValidMovePiece(Board board, Integer[] parsed_move) {
 		//TODO finish this
 		//analyze piece type
 		PieceInterface piece = board.getPieceAt(parsed_move[0]);
@@ -64,7 +64,13 @@ public class MoveChecker {
 		
 		//handle pawns
 		case ("p"):
-
+		{
+			Pawn pawn = new Pawn(piece.getColor(), "p");
+			if(pawn.isValidPieceMove(board, parsed_move))
+				return true;			
+		}
+			
+			
 		//handle rooks
 		case ("R"):
 		

@@ -4,6 +4,7 @@ public class King implements PieceInterface {
 
 	private String type;
 	private String color;
+	private boolean hasBeenMoved = false;
 
 	public King(String color, String type) {
 			this.color = color;
@@ -24,9 +25,10 @@ public class King implements PieceInterface {
 	public boolean isWhite() {
 		return color.equals("white");
 	}
+	
 
 	@Override
-	public boolean isValidMove(Board board, int[] location) {
+	public boolean isValidPieceMove(Board board, Integer[] location) {
 		int start = location[0];
 		int end = location[1];
 		
@@ -38,6 +40,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 			
 		}
@@ -49,6 +52,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//up
@@ -59,6 +63,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//down
@@ -69,6 +74,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//up and right
@@ -79,6 +85,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//up and left
@@ -89,6 +96,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//down and right
@@ -99,6 +107,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//up and left
@@ -109,6 +118,7 @@ public class King implements PieceInterface {
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		

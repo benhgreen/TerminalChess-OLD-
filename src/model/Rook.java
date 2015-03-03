@@ -4,6 +4,7 @@ public class Rook implements PieceInterface{
 
 	private String type;
 	private String color;
+	private boolean hasBeenMoved = false;
 
 	public Rook(String color, String type) {
 			this.color = color;
@@ -26,7 +27,7 @@ public class Rook implements PieceInterface{
 	}
 
 	@Override
-	public boolean isValidMove(Board board, int[] location) {
+	public boolean isValidPieceMove(Board board, Integer[] location) {
 		int start = location[0];
 		int end = location[1];
 		
@@ -60,6 +61,7 @@ public class Rook implements PieceInterface{
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//left
@@ -76,6 +78,7 @@ public class Rook implements PieceInterface{
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 		//right
@@ -92,6 +95,7 @@ public class Rook implements PieceInterface{
 				board.removePiece(end);
 			
 			board.movePiece(start, end);
+			hasBeenMoved = true;
 			return true;
 		}
 

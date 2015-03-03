@@ -24,7 +24,7 @@ public interface PieceInterface {
 	 */
 	public boolean isWhite();
 	
-	public boolean isValidMove(Board board, int[] location);
+	public boolean isValidPieceMove(Board board, Integer[] location);
 
 
 }
