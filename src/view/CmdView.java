@@ -6,7 +6,7 @@ package view;
 import java.util.Scanner;
 
 import control.BoardPrinter;
-import control.MoveChecker;
+import control.MoveProcessor;
 import model.Board;
 /**
  * @author Ben Green & Kate Sussman
@@ -32,16 +32,37 @@ public class CmdView {
 			if(board.getWhoseTurn() == "w")
 				System.out.print("White's move: ");
 			
-			else if(board.getWhoseTurn() == "w")
+			else if(board.getWhoseTurn() == "b")
 				System.out.print("Black's move: ");
 			
 			move = input.nextLine();
 			
+			if(move.equals("resign"))
+			{
+				if(board.getWhoseTurn() == "b")
+					System.out.println("White wins");
+				if(board.getWhoseTurn() == "w")
+					System.out.println("Black wins");
+				
+				System.exit(0);
+			}
+			
+			if(Board.draw)
+				if(move.equals("draw"))
+				{
+					System.out.println("draw");
+					System.exit(0);
+				}
+						
+			
+			
 			//check move validity
-			while (!MoveChecker.isValidMove(board, move)) {
+			while (!MoveProcessor.processMove(board, move)) {
 				System.out.print("\nIllegal Move, try again: ");
 				move = input.nextLine();
 			}
+			
+			board.switchPlayer();
 			
 		
 		}

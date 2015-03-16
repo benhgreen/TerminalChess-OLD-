@@ -4,10 +4,12 @@ public class Bishop implements PieceInterface {
 
 	private String type;
 	private String color;
+	private boolean is_first_move;
 
-	public Bishop(String color, String type) {
+	public Bishop(String color, String type, boolean is_first_move) {
 			this.color = color;
 			this.type = type;
+			this.is_first_move = is_first_move;
 	}
 
 	@Override
@@ -19,6 +21,11 @@ public class Bishop implements PieceInterface {
 	public String getColor() {
 		return color;
 	}
+	
+	public boolean getIsFirstMove()
+	{
+		return is_first_move;
+	}
 
 	@Override
 	public boolean isWhite() {
@@ -26,9 +33,10 @@ public class Bishop implements PieceInterface {
 	}
 
 	@Override
-	public boolean isValidPieceMove(Board board, Integer[] location) {
-		int start = location[0];
-		int end = location[1];
+	public boolean isValidPieceMove(Board board, String[] location) {
+		Integer start = Integer.parseInt(location[0]);
+		Integer end = Integer.parseInt(location[1]);
+		String option = location[2];
 		
 		//up and right 
 		if((end-start) % 9 == 0)
@@ -40,9 +48,10 @@ public class Bishop implements PieceInterface {
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//up and left 
@@ -55,9 +64,12 @@ public class Bishop implements PieceInterface {
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				//board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
+			//board.movePiece(start, end);
 			return true;
 		}
 		//down and left
@@ -70,9 +82,12 @@ public class Bishop implements PieceInterface {
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				//board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
+			//board.movePiece(start, end);
 			return true;
 		}
 		//down and right
@@ -85,9 +100,12 @@ public class Bishop implements PieceInterface {
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				//board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
+			//board.movePiece(start, end);
 			return true;
 		}
 	

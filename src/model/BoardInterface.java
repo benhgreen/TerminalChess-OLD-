@@ -24,7 +24,7 @@ public interface BoardInterface {
 	 * @param type Piece's type
 	 * @param location Place on board to put piece (a4, b2, etc.)
 	 */
-	public void addPiece(String color, String type, Integer location);
+	public void addPiece(String color, String type, Integer location, boolean is_first_move);
 	
 	/**Remove piece from board.
 	 * @param location Location of piece to remove

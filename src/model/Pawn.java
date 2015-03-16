@@ -4,11 +4,12 @@ public class Pawn implements PieceInterface {
 	
 	private String type;
 	private String color;
-	private boolean is_first_move = true;
+	private boolean is_first_move;
 
-	public Pawn(String color, String type) {
+	public Pawn(String color, String type, boolean is_first_move) {
 			this.color = color;
 			this.type = type;
+			this.is_first_move = is_first_move;
 	}
 
 	@Override
@@ -32,9 +33,10 @@ public class Pawn implements PieceInterface {
 	}
 
 	@Override
-	public boolean isValidPieceMove(Board board, Integer[] location) {
-		Integer start = location[0];
-		Integer end = location[1];
+	public boolean isValidPieceMove(Board board, String[] location) {
+		Integer start = Integer.parseInt(location[0]);
+		Integer end = Integer.parseInt(location[1]);
+		String option = location[2];
 
 		
 		
@@ -46,9 +48,14 @@ public class Pawn implements PieceInterface {
 			{
 				if(end == start+7 || end == start+9)
 				{
-					board.removePiece(end);
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.willCapture = true;
+					Board.promotion = false;
+					Board.enPassant = false;
+					
+					//reached end of board
+					if(end <= 64 && end >= 57)
+						Board.promotion = true;
+					
 					return true;
 				}			
 			}
@@ -58,25 +65,39 @@ public class Pawn implements PieceInterface {
 			{
 				if(board.getPieceAt(end) == null)
 				{
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.willCapture = false;
+					Board.promotion = false;
+					Board.enPassant = false;
 					
 					//reached end of board
-					if(end <= 64 || end >= 57)
-						//queen for now TODO: ask for other pieces
-						board.replacePiece("w", "Q", end);
+					if(end <= 64 && end >= 57)
+						Board.promotion = true;
 					
 					return true;
 				}	
 			}
 			
 			//moving 2 squares up
-			if(is_first_move)
+			if(this.getIsFirstMove())
 			{
 				if(board.getPieceAt(end) == null && board.getPieceAt(start+8) == null)
 				{
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.willCapture = false;
+					Board.promotion = false;
+					Board.enPassant = false;
+					
+					//if pawn lands next to another pawn of opposite color
+					if(end + 1 <= 64 && end + 1 % 8 > end % 8)
+					{
+						if(board.getPieceAt(end+1) != null && board.getPieceAt(end+1).getType().equals("p") && board.getPieceAt(end+1).getColor().equals("b"))
+							Board.enPassant = true;
+					}
+					if(end -1 > 0 && end % 8 > end - 1 % 8)
+					{
+						if(board.getPieceAt(end-1) != null && board.getPieceAt(end-1).getType().equals("p") && board.getPieceAt(end-1).getColor().equals("b"))
+							Board.enPassant = true;
+					}
+
 					return true;
 				}
 			}
@@ -90,9 +111,14 @@ public class Pawn implements PieceInterface {
 			{
 				if(end == start-7 || end == start-9)
 				{
-					board.removePiece(end);
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.willCapture = true;
+					Board.promotion = false;
+					Board.enPassant = false;
+					
+					//reached end of board
+					if(end <= 8 && end >= 1)
+						Board.promotion = true;
+					
 					return true;
 				}			
 			}
@@ -102,25 +128,39 @@ public class Pawn implements PieceInterface {
 			{
 				if(board.getPieceAt(end) == null)
 				{
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.enPassant = false;
+					Board.willCapture = false;
+					Board.promotion = false;
 					
 					//reached end of board
-					if(end <= 64 || end >= 57)
-						//queen for now TODO: ask for other pieces
-						board.replacePiece("b", "Q", end);
+					if(end <= 8 && end >= 1)
+						Board.promotion = true;
 					
 					return true;
 				}	
 			}
 			
 			//moving 2 squares down
-			if(is_first_move)
+			if(this.getIsFirstMove())
 			{
 				if(board.getPieceAt(end) == null && board.getPieceAt(start-8) == null)
 				{
-					board.movePiece(start, end);
-					is_first_move = false;
+					Board.enPassant = false;
+					Board.willCapture = false;
+					Board.promotion = false;
+					
+					//if pawn lands next to another pawn of opposite color
+					if(end + 1 <= 64 && end + 1 % 8 > end % 8)
+					{
+						if(board.getPieceAt(end+1) != null && board.getPieceAt(end+1).getType().equals("p") && board.getPieceAt(end+1).getColor().equals("b"))
+							Board.enPassant = true;
+					}
+					if(end -1 > 0 && end % 8 > end - 1 % 8)
+					{
+						if(board.getPieceAt(end-1) != null && board.getPieceAt(end-1).getType().equals("p") && board.getPieceAt(end-1).getColor().equals("b"))
+							Board.enPassant = true;
+					}
+					
 					return true;
 				}
 			}

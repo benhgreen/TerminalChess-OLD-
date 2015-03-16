@@ -4,10 +4,12 @@ public class Queen implements PieceInterface{
 
 	private String type;
 	private String color;
+	private boolean is_first_move;
 
-	public Queen(String color, String type) {
+	public Queen(String color, String type, boolean is_first_move) {
 			this.color = color;
 			this.type = type;
+			this.is_first_move = is_first_move;
 	}
 
 	@Override
@@ -19,6 +21,11 @@ public class Queen implements PieceInterface{
 	public String getColor() {
 		return color;
 	}
+	
+	public boolean getIsFirstMove()
+	{
+		return is_first_move;
+	}
 
 	@Override
 	public boolean isWhite() {
@@ -26,12 +33,13 @@ public class Queen implements PieceInterface{
 	}
 
 	@Override
-	public boolean isValidPieceMove(Board board, Integer[] location) {
-		int start = location[0];
-		int end = location[1];
+	public boolean isValidPieceMove(Board board, String[] location) {
+		Integer start = Integer.parseInt(location[0]);
+		Integer end = Integer.parseInt(location[1]);
+		String option = location[2];
 		
 		//forwards
-		if((end-start) % 8 == 0)
+		if((end-start) % 8 == 0 && end > start)
 		{
 			for(int i=start+8; i<end; i+=8)
 			{
@@ -41,13 +49,14 @@ public class Queen implements PieceInterface{
 			
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//backwards
-		if((start-end) % 8 == 0)
+		if((start-end) % 8 == 0 && start > end)
 		{
 			for(int i=start-8; i>end; i-=8)
 			{
@@ -57,13 +66,14 @@ public class Queen implements PieceInterface{
 			
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//left
-		if((start-end) < 8)
+		if((start-end) < 8 && start % 8 > end % 8)
 		{
 			for(int i=start-1; i>end; i--)
 			{
@@ -73,13 +83,14 @@ public class Queen implements PieceInterface{
 			
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//right
-		if((end-start) < 8)
+		if((end-start) < 8 && end % 8 > start % 8)
 		{
 			for(int i=start+1; i<end; i++)
 			{
@@ -89,9 +100,10 @@ public class Queen implements PieceInterface{
 			
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		
@@ -105,9 +117,10 @@ public class Queen implements PieceInterface{
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//up and left 
@@ -120,9 +133,10 @@ public class Queen implements PieceInterface{
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//down and left
@@ -135,9 +149,10 @@ public class Queen implements PieceInterface{
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		//down and right
@@ -150,9 +165,10 @@ public class Queen implements PieceInterface{
 			}
 			//capture
 			if(board.getPieceAt(end) != null)
-				board.removePiece(end);
+				Board.willCapture = true;
+			else
+				Board.willCapture = false;
 			
-			board.movePiece(start, end);
 			return true;
 		}
 		
